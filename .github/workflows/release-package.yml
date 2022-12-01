@@ -1,0 +1,17 @@
+name: NuGet Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - run: dotnet nuget add source --username AutomationPanda --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/AutomationPanda/index.json"
+      - run: dotnet pack -c Release
+      - run: dotnet nuget push "bin/Release/*.nupkg" --source "github"
