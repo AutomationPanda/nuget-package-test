@@ -14,4 +14,4 @@ jobs:
           dotnet-version: '7.0.x'
       - run: dotnet nuget add source --username AutomationPanda --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/AutomationPanda/index.json"
       - run: dotnet pack -c Release
-      - run: dotnet nuget push "bin/Release/*.nupkg" --source "github"
+      - run: dotnet nuget push "ProjectA/bin/Release/*.nupkg" --source "github"
